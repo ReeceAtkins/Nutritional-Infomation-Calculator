@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using System.ComponentModel.DataAnnotations;
 
 namespace Nutritional_Infomation_Calculator.Models
 {
@@ -84,5 +85,10 @@ namespace Nutritional_Infomation_Calculator.Models
         /// The amount of Vitamin C meaured in milligrams
         /// </summary>
         public int VitaminC { get; set; }
+
+        /// <summary>
+        /// The number of servings the menu item contains
+        /// </summary>
+        public int ServingSize { get; set; }
     }
 }
