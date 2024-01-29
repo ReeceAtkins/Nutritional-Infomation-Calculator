@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Nutritional_Infomation_Calculator.Data;
+using Nutritional_Infomation_Calculator.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,7 @@ builder.Services.AddDbContext<MenuContext>(options =>
 // Create better database error messages
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+builder.Services.AddHttpClient<SpoonacularAPIHelper>();
 
 builder.Services.AddControllersWithViews();
 
