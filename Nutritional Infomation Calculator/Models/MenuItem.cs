@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using Nutritional_Infomation_Calculator.Data;
+﻿using Nutritional_Infomation_Calculator.Data;
 using System.ComponentModel.DataAnnotations;
 
 namespace Nutritional_Infomation_Calculator.Models
@@ -28,11 +27,11 @@ namespace Nutritional_Infomation_Calculator.Models
         /// <summary>
         /// The menu item's nutritional information 
         /// </summary>
-        public Nutrition Nutrition { get; set; }
+        public Nutrition Nutrition { get; set; } = new Nutrition();
 
         /// <summary>
         /// The menu item's Servings information
         /// </summary>
-        public Servings Servings { get; set; }
+        public Servings Servings { get; set; } = new Servings();
     }
 }

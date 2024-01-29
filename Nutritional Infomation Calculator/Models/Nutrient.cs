@@ -1,5 +1,9 @@
-﻿namespace Nutritional_Infomation_Calculator.Models
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+
+namespace Nutritional_Infomation_Calculator.Models
 {
+    [Owned]
     /// <summary>
     /// Represents a single nutrient
     /// </summary>

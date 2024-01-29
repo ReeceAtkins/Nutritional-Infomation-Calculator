@@ -1,5 +1,8 @@
-﻿namespace Nutritional_Infomation_Calculator.Models
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Nutritional_Infomation_Calculator.Models
 {
+    [Owned]
     /// <summary>
     /// Represents the serving information for a menu item
     /// </summary>
