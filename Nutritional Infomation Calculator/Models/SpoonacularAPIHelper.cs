@@ -1,19 +1,22 @@
 ﻿using Newtonsoft.Json;
+using Nutritional_Infomation_Calculator.Data;
 
 namespace Nutritional_Infomation_Calculator.Models
 {
     public class SpoonacularAPIHelper
     {
         private readonly HttpClient _httpClient;
+        private readonly MenuContext _context;
         private const string SpoonacularApiKey = "8b1856901dc94ea9b4aa6a0a1e90a95e";
 
-        public SpoonacularAPIHelper(HttpClient httpClient)
+        public SpoonacularAPIHelper(HttpClient httpClient, MenuContext context)
         {
             _httpClient = httpClient;
+            _context = context;
         }
 
         /// <summary>
-        /// Contacts the API and gets all Menu Items
+        /// Contacts the API and retrives all Menu Items
         /// </summary>
         /// <returns>A list of Menu Items</returns>
         public async Task<List<MenuItem>> GetMenuItems()
@@ -25,7 +28,7 @@ namespace Nutritional_Infomation_Calculator.Models
                 string apiendpoint = "https://api.spoonacular.com/food/menuItems/search";
 
                 // expected results
-                string expectedNumResults = "2"; // This should be 74 and the current is temperary
+                string expectedNumResults = "2"; // This should be 74 and the current number is temperary
 
                 // query parameters
                 var queryparams = new Dictionary<string, string>
@@ -65,6 +68,20 @@ namespace Nutritional_Infomation_Calculator.Models
 
             return menuItems;
         }
+
+        /// <summary>
+        /// Saves a list of MenuItems to the database
+        /// </summary>
+        /// <param name="menuItems">The list of MenuItems</param>
+        public async Task AddMenuItemsToDatabase(List<MenuItem> menuItems)
+        {
+            foreach (MenuItem menuItem in menuItems)
+            {
+                _context.MenuItems.Add(menuItem);
+            }
+            await _context.SaveChangesAsync();
+        }
+
 
         public class MenuItemResponse
         {
