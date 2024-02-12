@@ -1,4 +1,5 @@
 ﻿@model List<Nutritional_Infomation_Calculator.Models.MenuItem>
+@using System.Text.Json;
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -6,23 +7,30 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-8 d-flex flex-wrap pr-md-5">
-            <!-- Loop through your models to display images and titles -->
-            @foreach (var item in Model)
+            @foreach (MenuItem menuItem in Model)
             {
                 <div class="col-md-3 mb-3">
                     <div class="card item-card">
-                        <img src="@item.Image" class="card-img-top item-image" onerror="this.onerror=null; this.src='https://via.placeholder.com/150';">
+
+                        @{
+                            //string json = JsonSerializer.Serialize(menuItem);
+                        }
+
+                        <img src="@menuItem.Image" class="card-img-top item-image" onerror="this.onerror=null; this.src='https://via.placeholder.com/150';">
                         <div class="card-body card-body-overlay">
-                            <h5 class="card-title">@item.Title</h5>
+                            <h5 class="card-title">@menuItem.Title</h5>
+                            <button class="btnItem" data-json='@JsonSerializer.Serialize(menuItem)'>Display Nutrients</button>
                         </div>
                     </div>
                 </div>
             }
         </div>
+        <!-- Sidebar -->
         <div class="col-md-4 sidebar">
-            <!-- Sidebar content -->
-            <div>
-                <h2>Part 1</h2>
+            <div id="sidebar-content">
+                <div id="nutritionInfo">
+                    
+                </div>
             </div>
             <div>
                 <h2>Part 2</h2>
