@@ -1,8 +1,32 @@
-﻿@{
+﻿@model List<Nutritional_Infomation_Calculator.Models.MenuItem>
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8 d-flex flex-wrap pr-md-5">
+            <!-- Loop through your models to display images and titles -->
+            @foreach (var item in Model)
+            {
+                <div class="col-md-3 mb-3">
+                    <div class="card item-card">
+                        <img src="@item.Image" class="card-img-top item-image" onerror="this.onerror=null; this.src='https://via.placeholder.com/150';">
+                        <div class="card-body card-body-overlay">
+                            <h5 class="card-title">@item.Title</h5>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-md-4 sidebar">
+            <!-- Sidebar content -->
+            <div>
+                <h2>Part 1</h2>
+            </div>
+            <div>
+                <h2>Part 2</h2>
+            </div>
+        </div>
+    </div>
 </div>
