@@ -1,8 +1,40 @@
-﻿@{
+﻿@model List<Nutritional_Infomation_Calculator.Models.MenuItem>
+@using System.Text.Json;
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8 d-flex flex-wrap pr-md-5">
+            @foreach (MenuItem menuItem in Model)
+            {
+                <div class="col-md-3 mb-3">
+                    <div class="card item-card">
+
+                        @{
+                            //string json = JsonSerializer.Serialize(menuItem);
+                        }
+
+                        <img src="@menuItem.Image" class="card-img-top item-image" onerror="this.onerror=null; this.src='https://via.placeholder.com/150';">
+                        <div class="card-body card-body-overlay">
+                            <h5 class="card-title">@menuItem.Title</h5>
+                            <button class="btnItem" data-json='@JsonSerializer.Serialize(menuItem)'>Display Nutrients</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <!-- Sidebar -->
+        <div class="col-md-4 sidebar">
+            <div id="sidebar-content">
+                <div id="nutritionInfo">
+                    
+                </div>
+            </div>
+            <div>
+                <h2>Part 2</h2>
+            </div>
+        </div>
+    </div>
 </div>

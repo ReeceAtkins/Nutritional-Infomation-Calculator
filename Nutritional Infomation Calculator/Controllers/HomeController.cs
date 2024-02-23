@@ -33,7 +33,7 @@ namespace Nutritional_Infomation_Calculator.Controllers
                 await _apiHelper.AddMenuItemsToDatabase(menuItems);
             }
 
-            return View();
+            return View(menuItems);
         }
 
         public IActionResult Privacy()
