@@ -8,7 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\js\NutrientTotal.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\js\NutrientTotal.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="C:\Program Files\dotnet\sdk\8.0.101\Sdks\Microsoft.NET.Sdk.StaticWebAssets\targets\Microsoft.NET.Sdk.StaticWebAssets.Pack.targets" Link="Microsoft.NET.Sdk.StaticWebAssets.Pack.targets" />
+    <None Include="wwwroot\js\NutrientTotal.js" />
   </ItemGroup>
 
   <ItemGroup>
