@@ -18,8 +18,26 @@ class Nutrient {
 }
 
 class Nutrition {
-    constructor(nutrients) {
+    constructor(nutrients = []) {
         this.Nutrients = nutrients;
+    }
+
+    static createFromData(nutrientsData) {
+        const nutrients = nutrientsData.map(nutrient => new Nutrient(
+            nutrient.Name,
+            nutrient.Amount,
+            nutrient.Unit,
+            nutrient.PercentOfDailyNeeds
+        ));
+        return new Nutrition(nutrients);
+    }
+
+    addNutrient(nutrient) {
+        this.Nutrients.push(nutrient);
+    }
+
+    getNutrientByName(name) {
+        return this.Nutrients.find(nutrient => nutrient.Name === name);
     }
 }
 
@@ -29,6 +47,12 @@ class Servings {
         this.Size = size;
         this.Unit = unit;
     }
-}
 
-//export { MenuItem, Nutrient, Nutrition, Servings }
+    static createFromData(servingsData) {
+        return new Servings(
+            servingsData.Number,
+            servingsData.Size,
+            servingsData.Unit
+        );
+    }
+}
