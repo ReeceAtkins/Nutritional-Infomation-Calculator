@@ -12,10 +12,6 @@
                 <div class="col-md-3 mb-3">
                     <div class="card item-card">
 
-                        @{
-                            //string json = JsonSerializer.Serialize(menuItem);
-                        }
-
                         <img src="@menuItem.Image" class="card-img-top item-image" onerror="this.onerror=null; this.src='https://via.placeholder.com/150';">
                         <div class="card-body card-body-overlay">
                             <h5 class="card-title">@menuItem.Title</h5>
@@ -33,7 +29,9 @@
                 </div>
             </div>
             <div>
-                <h2>Part 2</h2>
+                <div id="nutritionTotal">
+
+                </div>
             </div>
         </div>
     </div>
