@@ -1,12 +1,21 @@
 ﻿
 document.addEventListener("click", function (event) {
+
     if (event.target.classList.contains("btnItem")) {
         var jsonData = event.target.dataset.json;
         var data = JSON.parse(jsonData);
 
-        console.log(data.Title);
+        var menuItem = new MenuItem(
+            data.MenuId,
+            data.Title,
+            data.Image,
+            new Nutrition(data.Nutrition.Nutrients.map(nutrient => new Nutrient(nutrient.Name, nutrient.Amount, nutrient.Unit, nutrient.PercentOfDailyNeeds))),
+            new Servings(data.Servings.Number, data.Servings.Size, data.Servings.Unit)
+        );
 
-        displayInformation(data)
+        console.log(menuItem.Title);
+
+        displayInformation(menuItem)
     }
 });
 
