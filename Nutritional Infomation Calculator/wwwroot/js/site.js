@@ -1,5 +1,6 @@
 ﻿
 var totalNutrients = new NutrientTotal();
+var currentMenuItem = null;
 
 document.addEventListener("click", function (event) {
 
@@ -8,7 +9,7 @@ document.addEventListener("click", function (event) {
         var data = JSON.parse(jsonData);
 
         // Populate menuItem
-        var menuItem = new MenuItem(
+        currentMenuItem = new MenuItem(
             data.MenuId,
             data.Title,
             data.Image,
@@ -16,11 +17,35 @@ document.addEventListener("click", function (event) {
             Servings.createFromData(data.Servings)
         );
 
-        totalNutrients.addNutrientsTotal(menuItem)
+        totalNutrients.addNutrientsTotal(currentMenuItem)
         
-        displayMenuItemInformation(menuItem)
+        displayMenuItemInformation(currentMenuItem)
         displayTotalNutrientInformation();
     }
+});
+
+document.addEventListener("mouseover", function (event) {
+    if (event.target.classList.contains("btnItem")) {
+        var jsonData = event.target.dataset.json;
+        var data = JSON.parse(jsonData);
+
+        var tempMenuItem = new MenuItem(
+            data.MenuId,
+            data.Title,
+            data.Image,
+            Nutrition.createFromData(data.Nutrition.Nutrients),
+            Servings.createFromData(data.Servings)
+        );
+
+        // Change color for display
+        document.getElementById("nutritionInfo").style.color = "green";
+
+        displayMenuItemInformation(tempMenuItem);
+    }
+});
+
+document.addEventListener("mouseout", function (event) {
+    RevertMenuItemInformation();
 });
 
 function displayTotalNutrientInformation() {
@@ -68,4 +93,14 @@ function displayMenuItemInformation(menuItem) {
 
     // Append the list to the container
     container.appendChild(list);
+}
+
+function RevertMenuItemInformation() {
+    var container = document.getElementById("nutritionInfo");
+    container.innerHTML = "";
+    container.style.color = "";
+
+    if (currentMenuItem) {
+        displayMenuItemInformation(currentMenuItem);
+    }
 }
