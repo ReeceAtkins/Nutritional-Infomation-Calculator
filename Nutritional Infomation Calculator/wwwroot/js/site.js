@@ -24,6 +24,16 @@ document.addEventListener("click", function (event) {
     }
 });
 
+document.getElementById("clearTotal").onclick = function () {
+    // Reset total nutrients
+    totalNutrients = new NutrientTotal();
+    displayTotalNutrientInformation();
+}
+
+document.addEventListener("click", function (event) {
+
+});
+
 document.addEventListener("mouseover", function (event) {
     if (event.target.classList.contains("btnItem")) {
         var jsonData = event.target.dataset.json;
