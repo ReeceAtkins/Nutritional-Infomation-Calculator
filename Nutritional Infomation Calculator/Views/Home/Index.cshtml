@@ -10,12 +10,12 @@
             @foreach (MenuItem menuItem in Model)
             {
                 <div class="col-md-3 mb-3">
-                    <div class="card item-card">
+                    <div class="card item-card cardItem" data-json='@JsonSerializer.Serialize(menuItem)'>
 
                         <img src="@menuItem.Image" class="card-img-top item-image" onerror="this.onerror=null; this.src='https://via.placeholder.com/150';">
                         <div class="card-body card-body-overlay">
                             <h5 class="card-title">@menuItem.Title</h5>
-                            <button class="btnItem" data-json='@JsonSerializer.Serialize(menuItem)'>Display Nutrients</button>
+                            <!--<button>Display Nutrients</button> -->
                         </div>
                     </div>
                 </div>
