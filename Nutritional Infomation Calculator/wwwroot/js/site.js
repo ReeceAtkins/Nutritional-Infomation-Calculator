@@ -3,8 +3,9 @@ var totalNutrients = new NutrientTotal();
 var currentMenuItem = null;
 
 document.addEventListener("click", function (event) {
+    var item = event.target;
+    if (item.classList.contains("cardItem")) {
 
-    if (event.target.classList.contains("btnItem")) {
         var jsonData = event.target.dataset.json;
         var data = JSON.parse(jsonData);
 
@@ -17,10 +18,25 @@ document.addEventListener("click", function (event) {
             Servings.createFromData(data.Servings)
         );
 
-        totalNutrients.addNutrientsTotal(currentMenuItem)
-        
-        displayMenuItemInformation(currentMenuItem)
-        displayTotalNutrientInformation();
+        // If item already clicked, subtract from total
+        if (item.classList.contains("clicked")) {
+            item.classList.remove("clicked");
+            totalNutrients.subtractNutrientsTotal(currentMenuItem);
+
+            // Reset current menuItem
+            currentMenuItem = null;
+
+            document.getElementById("nutritionInfo").innerHTML = "";
+            displayTotalNutrientInformation();
+        }
+        else {
+            item.classList.add("clicked");
+
+            totalNutrients.addNutrientsTotal(currentMenuItem);
+
+            displayMenuItemInformation(currentMenuItem);
+            displayTotalNutrientInformation();
+        }
     }
 });
 
@@ -28,14 +44,20 @@ document.getElementById("clearTotal").onclick = function () {
     // Reset total nutrients
     totalNutrients = new NutrientTotal();
     displayTotalNutrientInformation();
+
+    // Remove currently displayed menuItem and reset currentMenuitem
+    document.getElementById("nutritionInfo").innerHTML = "";
+    currentMenuItem = null;
+
+    // Reset all currently clicked items
+    var clickedItems = document.querySelectorAll(".clicked");
+    clickedItems.forEach(item => {
+        item.classList.remove("clicked");
+    });
 }
 
-document.addEventListener("click", function (event) {
-
-});
-
 document.addEventListener("mouseover", function (event) {
-    if (event.target.classList.contains("btnItem")) {
+    if (event.target.classList.contains("cardItem")) {
         var jsonData = event.target.dataset.json;
         var data = JSON.parse(jsonData);
 

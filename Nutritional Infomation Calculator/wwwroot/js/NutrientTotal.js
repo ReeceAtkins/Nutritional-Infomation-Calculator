@@ -21,6 +21,28 @@
         });
     }
 
+    subtractNutrientsTotal(menuItem) {
+        menuItem.Nutrition.Nutrients.forEach(nutrient => {
+            const existingNutrient = this.Nutrition.getNutrientByName(nutrient.Name);
+
+            if (existingNutrient) {
+                // Subtract only if the existing nutrient has a non-zero amount
+                if (existingNutrient.Amount > 0)
+                existingNutrient.Amount -= nutrient.Amount;
+                existingNutrient.PercentOfDailyNeeds -= nutrient.PercentOfDailyNeeds;
+
+                // Check if the nutrient amount or daily percentage becomes zero after subtraction
+                if (existingNutrient.Amount <= 0 || existingNutrient.PercentOfDailyNeeds <= 0) {
+                    // Remove the nutrient from the list
+                    this.Nutrition.removeNutrient(existingNutrient.Name);
+                }
+            }
+            else { // Error
+                console.log(`${nutrient.Name} doesn't exist`)
+            }
+        });
+    }
+
     getNutrientByName(name) {
         return this.Nutrition.getNutrientByName(name);
     }

@@ -36,6 +36,10 @@ class Nutrition {
         this.Nutrients.push(nutrient);
     }
 
+    removeNutrient(name) {
+        this.Nutrients = this.Nutrients.filter(nutrient => nutrient.Name !== name);
+    }
+
     getNutrientByName(name) {
         return this.Nutrients.find(nutrient => nutrient.Name === name);
     }
