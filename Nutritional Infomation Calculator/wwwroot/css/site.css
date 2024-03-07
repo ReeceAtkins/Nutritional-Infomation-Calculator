@@ -61,6 +61,10 @@ body {
     background: rgba(255, 255, 255, 0.7);
 }
 
+.item-image, .card-body-overlay { /* Removes a click event */
+    pointer-events: none;
+}
+
 .clicked {
     transform: scale(1.05);
     border: 2px solid royalblue;

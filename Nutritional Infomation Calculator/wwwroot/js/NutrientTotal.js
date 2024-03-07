@@ -26,18 +26,19 @@
             const existingNutrient = this.Nutrition.getNutrientByName(nutrient.Name);
 
             if (existingNutrient) {
+                // Subtract only if the existing nutrient has a non-zero amount
+                if (existingNutrient.Amount > 0)
                 existingNutrient.Amount -= nutrient.Amount;
                 existingNutrient.PercentOfDailyNeeds -= nutrient.PercentOfDailyNeeds;
-            }
 
-            // Check if the nutrient amount becomes zero after subtraction
-            if (existingNutrient.Amount <= 0) {
-                // Remove the nutrient from the list
-                this.Nutrition.removeNutrient(existingNutrient.Name);
+                // Check if the nutrient amount or daily percentage becomes zero after subtraction
+                if (existingNutrient.Amount <= 0 || existingNutrient.PercentOfDailyNeeds <= 0) {
+                    // Remove the nutrient from the list
+                    this.Nutrition.removeNutrient(existingNutrient.Name);
+                }
             }
-
             else { // Error
-                console.log(`${existingNutrient} doesn't exist`)
+                console.log(`${nutrient.Name} doesn't exist`)
             }
         });
     }
