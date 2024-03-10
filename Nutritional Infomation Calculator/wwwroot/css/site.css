@@ -19,6 +19,7 @@ html {
 
 body {
   margin-bottom: 60px;
+  background-color: lightgrey;
 }
 
 .container {
@@ -26,6 +27,10 @@ body {
     padding-right: 15px;
     padding-left: 15px;
     margin: 0;
+}
+
+.sidebar h5, .sidebar h3, .sidebar h2 {
+    margin-bottom: 0;
 }
 
 /* Main Content */
@@ -73,12 +78,18 @@ body {
 /* Sidebar */
 
 .sidebar {
-    background-color: lightgrey;
+    background-color: white;
+
     float: right;
     height: 92.5%;
     position: fixed;
     right: 0;
     display: flex;
+    border: 1px solid black;
+}
+
+#sidebar-content {
+    width: 100%;
 }
 
 #clearTotalContainer {
@@ -94,3 +105,59 @@ body {
     height: 40px;
 }
 
+/* Display Current Item */
+
+#headerDiv {
+    border-bottom: 1px solid black;
+    padding-bottom: 2px;
+}
+
+#servingsDiv {
+    border-bottom: 5px solid black;
+    padding-bottom: 2px;
+}
+
+#caloriesDiv {
+    border-bottom: 3px solid black;
+    padding-bottom: 2px;
+}
+
+#caloriesDiv h5 {
+    font-size: 110%;
+}
+
+#caloriesDiv h2 {
+    font-size: 175%
+}
+
+#dailyValueDiv h5 {
+    text-align: right;
+    font-size: medium;
+}
+
+#nutritionInfo li {
+    border-top: 1px solid black;
+    list-style-type: none;
+}
+
+ul {
+    padding-left: 0;
+}
+
+#supplementList {
+    border-top: 8px solid black;
+    border-bottom: 12px solid black;
+}
+
+/* Disply Total */
+
+.half-container {
+    width: 48%;
+    float: left;
+    margin-right: 10px;
+}
+
+
+#nutritionTotal li {
+    list-style-type: none;
+}
