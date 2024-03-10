@@ -82,24 +82,56 @@ document.addEventListener("mouseout", function (event) {
 
 function displayTotalNutrientInformation() {
     var container = document.getElementById("nutritionTotal");
-
     container.innerHTML = "";
+    container.appendChild(createHeaderElement("Total Nutrients", true));
 
-    var header = document.createElement("h2");
-    header.textContent = "Total Nutrients";
-    container.appendChild(header);
+    // Create two containers for each part of the list
+    var leftContainer = createDivElementClass("half-container");
+    var rightContainer = createDivElementClass("half-container");
 
-    var list = document.createElement("ul");
+    var nutrientOrder = [
+        "Fat",
+        "Saturated Fat",
+        "Trans Fat",
+        "Cholesterol",
+        "Sodium",
+        "Total Carbohydrate",
+        "Fiber",
+        "Sugar",
+        "Protein",
+        "Vitamin A",
+        "Vitamin C",
+        "Iron",
+        "Calcium"
+    ];
 
-    // Iterate over each nutrient in totalNutrients
-    totalNutrients.Nutrition.Nutrients.forEach(nutrient => {
-        var listItem = document.createElement("li");
-        listItem.textContent = `${nutrient.Name}: ${nutrient.Amount} ${nutrient.Unit} (${nutrient.PercentOfDailyNeeds}% of daily needs)`;
-        list.appendChild(listItem);
+    var midpoint = Math.ceil(nutrientOrder.length / 2);
+
+    // Iterate over each nutrient in the defined order
+    nutrientOrder.forEach((nutrientName, index) => {
+        var nutrient = totalNutrients.Nutrition.getNutrientByName(nutrientName);
+        if (nutrient) {
+            var listItem = document.createElement("li");
+
+            var percentSpan = document.createElement("span");
+            percentSpan.textContent = `${nutrient.PercentOfDailyNeeds}%`;
+            percentSpan.style.float = "right";
+
+            listItem.textContent = `${nutrient.Name} ${nutrient.Amount}${nutrient.Unit}`;
+            listItem.appendChild(percentSpan);
+
+            // Append list items to the appropriate container based on the midpoint
+            if (index < midpoint) {
+                leftContainer.appendChild(listItem);
+            }
+            else {
+                rightContainer.appendChild(listItem);
+            }
+        }
     });
 
-    // Append the list to the container
-    container.appendChild(list);
+    container.appendChild(leftContainer);
+    container.appendChild(rightContainer)
 }
 
 function displayMenuItemInformation(menuItem) {
@@ -113,9 +145,9 @@ function displayMenuItemInformation(menuItem) {
 
 
 
-    var list = createNutrientList(menuItem);
+    var list = createNutrientList(menuItem.Nutrition);
 
-    var listDiv = createDivElement("nutrientList");
+    var listDiv = createDivElementId("nutrientList");
     listDiv.appendChild(list);
 
     container.appendChild(listDiv);
@@ -123,15 +155,15 @@ function displayMenuItemInformation(menuItem) {
 
 function displayTopNutritionLabel(menuItem, container) {
     // Display item title
-    var headerDiv = createDivElement("headerDiv")
+    var headerDiv = createDivElementId("headerDiv")
     headerDiv.appendChild(createHeaderElement(menuItem.Title, true))
     container.appendChild(headerDiv);
 
     // Display servings
-    var servingsDiv = createDivElement("servingsDiv");
+    var servingsDiv = createDivElementId("servingsDiv");
     servingsDiv.appendChild(createSubheaderElement(`${menuItem.Servings.Number} serving per item`));
 
-    var servingSizeDiv = createDivElement("servingSizeDiv");
+    var servingSizeDiv = createDivElementId("servingSizeDiv");
     servingSizeDiv.style.display = "flex";
     servingSizeDiv.style.justifyContent = "space-between";
 
@@ -141,11 +173,11 @@ function displayTopNutritionLabel(menuItem, container) {
     container.appendChild(servingsDiv);
 
     // Display calories
-    var caloriesDiv = createDivElement("caloriesDiv");
+    var caloriesDiv = createDivElementId("caloriesDiv");
     caloriesDiv.appendChild(createSubheaderElement("Amount Per Serving", true));
 
     var caloriesNutrient = menuItem.Nutrition.getNutrientByName("Calories");
-    var caloriesAmountDiv = createDivElement("caloriesAmountDiv");
+    var caloriesAmountDiv = createDivElementId("caloriesAmountDiv");
     caloriesAmountDiv.style.display = "flex";
     caloriesAmountDiv.style.justifyContent = "space-between";
 
@@ -156,12 +188,12 @@ function displayTopNutritionLabel(menuItem, container) {
     container.appendChild(caloriesDiv);
 
     // Display daily value
-    var dailyValueDiv = createDivElement("dailyValueDiv");
+    var dailyValueDiv = createDivElementId("dailyValueDiv");
     dailyValueDiv.appendChild(createSubheaderElement("% Daily Value*", true));
     container.appendChild(dailyValueDiv);
 }
 
-function createNutrientList(menuItem) {
+function createNutrientList(Nutrition) {
     var list = document.createElement("ul");
 
     var nutrientOrder = [
@@ -177,14 +209,14 @@ function createNutrientList(menuItem) {
         { name: "Vitamin A", format: "normal" },
         { name: "Vitamin C", format: "normal" },
         { name: "Iron", format: "normal" },
-        { name: "Calcium", format: "normal"}
+        { name: "Calcium", format: "normal" }
     ];
 
-    var supplementList = createDivElement("supplementList");
+    var supplementList = createDivElementId("supplementList");
     var switchDiv = false;
 
     nutrientOrder.forEach((nutrientInfo) => {
-        var nutrient = menuItem.Nutrition.getNutrientByName(nutrientInfo.name);
+        var nutrient = Nutrition.getNutrientByName(nutrientInfo.name);
         if (nutrient) {
             var listItem = createNutrientListItem(nutrient, nutrientInfo.format);
 
@@ -246,9 +278,15 @@ function createNutrientListItem(nutrient, format) {
     return listItem;
 }
 
-function createDivElement(id) {
+function createDivElementId(id) {
     var divElement = document.createElement("div");
     divElement.id = id;
+    return divElement;
+}
+
+function createDivElementClass(className) {
+    var divElement = document.createElement("div");
+    divElement.classList.add(className);
     return divElement;
 }
 

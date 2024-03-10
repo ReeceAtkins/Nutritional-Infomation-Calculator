@@ -146,5 +146,18 @@ ul {
 
 #supplementList {
     border-top: 8px solid black;
-    border-bottom: 4px solid black;
+    border-bottom: 12px solid black;
+}
+
+/* Disply Total */
+
+.half-container {
+    width: 48%;
+    float: left;
+    margin-right: 10px;
+}
+
+
+#nutritionTotal li {
+    list-style-type: none;
 }
