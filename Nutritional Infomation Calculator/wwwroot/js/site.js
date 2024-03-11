@@ -1,84 +1,41 @@
 ﻿
+attachEventListeners();
+
 var totalNutrients = new NutrientTotal();
 var currentMenuItem = null;
 
-document.addEventListener("click", function (event) {
-    var item = event.target;
-    if (item.classList.contains("cardItem")) {
-
-        var jsonData = event.target.dataset.json;
-        var data = JSON.parse(jsonData);
-
-        // Populate menuItem
-        currentMenuItem = new MenuItem(
-            data.MenuId,
-            data.Title,
-            data.Image,
-            Nutrition.createFromData(data.Nutrition.Nutrients),
-            Servings.createFromData(data.Servings)
-        );
-
-        // If item already clicked, subtract from total
-        if (item.classList.contains("clicked")) {
-            item.classList.remove("clicked");
-            totalNutrients.subtractNutrientsTotal(currentMenuItem);
-
-            // Reset current menuItem
-            currentMenuItem = null;
-
-            document.getElementById("nutritionInfo").innerHTML = "";
-            displayTotalNutrientInformation();
-        }
-        else {
-            item.classList.add("clicked");
-
-            totalNutrients.addNutrientsTotal(currentMenuItem);
-
-            displayMenuItemInformation(currentMenuItem);
-            displayTotalNutrientInformation();
-        }
-    }
-});
-
-document.getElementById("clearTotal").onclick = function () {
-    // Reset total nutrients
-    totalNutrients = new NutrientTotal();
-    displayTotalNutrientInformation();
-
-    // Remove currently displayed menuItem and reset currentMenuitem
-    document.getElementById("nutritionInfo").innerHTML = "";
-    menuItem = null;
-
-    // Reset all currently clicked items
-    var clickedItems = document.querySelectorAll(".clicked");
-    clickedItems.forEach(item => {
-        item.classList.remove("clicked");
-    });
+function attachEventListeners() {
+    document.addEventListener("click", handleCardItemClick);
+    document.getElementById("clearTotal").addEventListener("click", handleClearTotalClick);
+    document.addEventListener("mouseover", handleCardItemMouseOver);
+    document.addEventListener("mouseout", handleCardItemMouseOut);
 }
 
-document.addEventListener("mouseover", function (event) {
-    if (event.target.classList.contains("cardItem")) {
-        var jsonData = event.target.dataset.json;
-        var data = JSON.parse(jsonData);
-
-        var tempMenuItem = new MenuItem(
-            data.MenuId,
-            data.Title,
-            data.Image,
-            Nutrition.createFromData(data.Nutrition.Nutrients),
-            Servings.createFromData(data.Servings)
-        );
-
-        // Change color for display
-        // document.getElementById("nutritionInfo").style.color = "green";
-
-        displayMenuItemInformation(tempMenuItem);
+// Updates total nutrients based on clicked items
+function updateTotalNutrients(item) {
+    if (item) {
+        if (item.classList.contains("clicked")) {
+            totalNutrients.addNutrientsTotal(currentMenuItem);
+        }
+        else {
+            totalNutrients.subtractNutrientsTotal(currentMenuItem);
+        }
     }
-});
+}
 
-document.addEventListener("mouseout", function (event) {
-    RevertMenuItemInformation();
-});
+// Clears displayed menu item information
+function clearDisplayedMenuItem() {
+    var nutritionInfoContainer = document.getElementById("nutritionInfo");
+    nutritionInfoContainer.innerHTML = "";
+}
+
+// Function to revert displayed menu item information
+function revertMenuItemInformation() {
+    clearDisplayedMenuItem();
+    if (currentMenuItem) {
+        displayMenuItemInformation(currentMenuItem);
+    }
+}
 
 function displayTotalNutrientInformation() {
     var container = document.getElementById("nutritionTotal");
@@ -306,14 +263,4 @@ function createSubheaderElement(text, weight) {
         subheader.style.fontWeight = "bold";
     }
     return subheader;
-}
-
-function RevertMenuItemInformation() {
-    var container = document.getElementById("nutritionInfo");
-    container.innerHTML = "";
-    container.style.color = "";
-
-    if (currentMenuItem) {
-        displayMenuItemInformation(currentMenuItem);
-    }
 }
