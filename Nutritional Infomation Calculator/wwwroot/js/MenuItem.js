@@ -6,6 +6,17 @@
         this.Nutrition = nutrition;
         this.Servings = servings;
     }
+
+    static createFromJson(jsonData) {
+        const data = JSON.parse(jsonData);
+        return new MenuItem(
+            data.MenuId,
+            data.Title,
+            data.Image,
+            Nutrition.createFromData(data.Nutrition.Nutrients),
+            Servings.createFromData(data.Servings)
+        );
+    }
 }
 
 class Nutrient {
