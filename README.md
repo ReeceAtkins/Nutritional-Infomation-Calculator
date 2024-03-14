@@ -2,6 +2,13 @@
 The goal of this project is to create a user-friendly website that displays a restaurant menu with interactive features. 
 Users should be able to browse the menu, click on items they are interested in, and see the nutritional information of their selected items.
 
+# Project ScreenShots:
+![image](https://github.com/ReeceAtkins/Nutritional-Infomation-Calculator/assets/130631201/e623382b-ccd0-4ebd-b395-d4a4351a2cc0)
+
+![image](https://github.com/ReeceAtkins/Nutritional-Infomation-Calculator/assets/130631201/e42fa3ca-b72e-4e8a-abca-f98d76c3cca2)
+
+
+
 # Features
 ### Menu Display:
 - A clean interface that categorically presents the restaurant menu
