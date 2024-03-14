@@ -1,7 +1,7 @@
 ﻿class NutrientTotal {
     constructor() {
         this.Nutrition = new Nutrition();
-;
+        ;
     }
 
     addNutrientsTotal(menuItem) {
@@ -30,7 +30,7 @@
     }
 
     getOrCreateNutrient(name, unit) {
-        let existingNutrient = this.getNutrientByName(name);
+        var existingNutrient = this.getNutrientByName(name);
         if (!existingNutrient) {
             existingNutrient = new Nutrient(name, 0, unit, 0); // Create a new nutrient if it doesn't exist
             this.Nutrition.addNutrient(existingNutrient);
