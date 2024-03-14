@@ -25,7 +25,7 @@ namespace Nutritional_Infomation_Calculator.Controllers
             List<MenuItem> menuItems = await (from MenuItem in _context.MenuItems
                                                    select MenuItem).ToListAsync();
 
-            // Checks if menuItems are already in the database
+            // Checks if menu items already exist in the database
             if (menuItems.Count == 0)
             {
                 menuItems = await _apiHelper.GetMenuItems();

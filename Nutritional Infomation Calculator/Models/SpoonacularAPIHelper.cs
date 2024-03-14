@@ -16,7 +16,7 @@ namespace Nutritional_Infomation_Calculator.Models
         }
 
         /// <summary>
-        /// Contacts the API and retrives all Menu Items
+        /// Contacts the API and retrives all menu items and information
         /// </summary>
         /// <returns>A list of Menu Items</returns>
         public async Task<List<MenuItem>> GetMenuItems()
@@ -28,7 +28,7 @@ namespace Nutritional_Infomation_Calculator.Models
                 string apiendpoint = "https://api.spoonacular.com/food/menuItems/search";
 
                 // expected results
-                string expectedNumResults = "2"; // This should be 74 and the current number is temperary
+                string expectedNumResults = "25"; // This should be 74 and the current number is temperary
 
                 // query parameters
                 var queryparams = new Dictionary<string, string>
