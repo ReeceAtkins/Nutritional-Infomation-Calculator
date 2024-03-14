@@ -1,5 +1,5 @@
 ﻿function formatNutrientName(name, format) {
-    if (name.includes("Trans")) {
+    if (name.includes("Trans") && format) {
         return `<span style="padding-left: 10px;"><em>${name.split(" ")[0]}</em> ${name.split(" ")[1]}</span>`;
     }
     else if (format === "bold") {

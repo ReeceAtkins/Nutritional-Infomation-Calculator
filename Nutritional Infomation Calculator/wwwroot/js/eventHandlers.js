@@ -20,18 +20,18 @@ function handleCardItemClick(event) {
     }
 }
 function handleClearTotalClick() {
-    // Reset total nutrients
-    totalNutrients = new NutrientTotal();
-    displayTotalNutrientInformation();
-
-    // Clear displayed menu item information
-    clearDisplayedMenuItem();
-
     // Remove clicked class from all items
     var clickedItems = document.querySelectorAll(".clicked");
     clickedItems.forEach(item => {
         item.classList.remove("clicked");
     });
+
+    menuItem = null;
+
+    // Resets and clears sidebar
+    totalNutrients = new NutrientTotal();
+    document.getElementById("nutritionTotal").innerHTML = "";
+    document.getElementById("nutritionInfo").innerHTML = "";
 }
 function handleCardItemMouseOver(event) {
     if (event.target.classList.contains("cardItem")) {
