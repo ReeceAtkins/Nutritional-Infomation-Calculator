@@ -1,27 +1,21 @@
-﻿function handleCardItemClick(event) {
+﻿
+var menuItem = null;
+
+function handleCardItemClick(event) {
     var item = event.target;
     if (item.classList.contains("cardItem")) {
 
         var jsonData = event.target.dataset.json;
-        var data = JSON.parse(jsonData);
-
-        // Populate menuItem
-        currentMenuItem = new MenuItem(
-            data.MenuId,
-            data.Title,
-            data.Image,
-            Nutrition.createFromData(data.Nutrition.Nutrients),
-            Servings.createFromData(data.Servings)
-        );
+        menuItem = MenuItem.createFromJson(jsonData);
 
         // Toggles clicked class
         item.classList.toggle("clicked");
 
         // Update total nutrients
-        updateTotalNutrients(item);
+        updateTotalNutrients(item, menuItem);
 
         // Display nutrition on sidebar
-        displayMenuItemInformation(currentMenuItem);
+        displayMenuItemInformation(menuItem);
         displayTotalNutrientInformation();
     }
 }
@@ -42,14 +36,7 @@ function handleClearTotalClick() {
 function handleCardItemMouseOver(event) {
     if (event.target.classList.contains("cardItem")) {
         var jsonData = event.target.dataset.json;
-        var data = JSON.parse(jsonData);
-        var tempMenuItem = new MenuItem(
-            data.MenuId,
-            data.Title,
-            data.Image,
-            Nutrition.createFromData(data.Nutrition.Nutrients),
-            Servings.createFromData(data.Servings)
-        );
+        var tempMenuItem = MenuItem.createFromJson(jsonData);
 
         // Display temporary menu item information
         displayMenuItemInformation(tempMenuItem);
@@ -57,5 +44,5 @@ function handleCardItemMouseOver(event) {
 }
 function handleCardItemMouseOut() {
     // Revert displayed menu item information
-    revertMenuItemInformation();
+    revertMenuItemInformation(menuItem);
 }
