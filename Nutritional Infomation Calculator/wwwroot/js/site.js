@@ -3,6 +3,9 @@ attachEventListeners();
 
 var totalNutrients = new NutrientTotal();
 
+/**
+ * Attaches event listeners to various elements in the document.
+ */
 function attachEventListeners() {
     document.addEventListener("click", handleCardItemClick);
     document.getElementById("clearTotal").addEventListener("click", handleClearTotalClick);
@@ -10,7 +13,11 @@ function attachEventListeners() {
     document.addEventListener("mouseout", handleCardItemMouseOut);
 }
 
-// Updates total nutrients based on clicked items
+/**
+ * Updates the total nutrients based on clicked items.
+ * @param {HTMLElement} item - The clicked item.
+ * @param {MenuItem} currentMenuItem - The menu item associated with the clicked item.
+ */
 function updateTotalNutrients(item, currentMenuItem) {
     if (item) {
         if (item.classList.contains("clicked")) {
@@ -22,6 +29,10 @@ function updateTotalNutrients(item, currentMenuItem) {
     }
 }
 
+/**
+ * Displays the nutritional information of a menu item in the sidebar.
+ * @param {MenuItem} menuItem - The menu item to display information for.
+ */
 function displayMenuItemInformation(menuItem) {
     var container = document.getElementById("nutritionInfo");
     container.innerHTML = "";
@@ -35,6 +46,9 @@ function displayMenuItemInformation(menuItem) {
     container.appendChild(listDiv);
 }
 
+/**
+ * Displays the total nutritional information accumulated from multiple menu items.
+ */
 function displayTotalNutrientInformation() {
     var container = document.getElementById("nutritionTotal");
     container.innerHTML = "";
@@ -65,6 +79,11 @@ function displayTotalNutrientInformation() {
     container.appendChild(rightContainer)
 }
 
+/**
+ * Creates a list of nutrients for a given Nutrition object.
+ * @param {Nutrition} Nutrition - The Nutrition object containing nutrient information.
+ * @returns {HTMLUListElement} - The created list element.
+ */
 function createNutrientList(Nutrition) {
     var list = document.createElement("ul");
     var nutrientOrder = getNutrientOrder(true);
@@ -94,6 +113,12 @@ function createNutrientList(Nutrition) {
     return list;
 }
 
+/**
+ * Creates a list item for a nutrient with specified formatting.
+ * @param {Nutrient} nutrient - The nutrient object.
+ * @param {string} format - The formatting style for the nutrient name.
+ * @returns {HTMLLIElement} - The created list item element.
+ */
 function createNutrientListItem(nutrient, format) {
     var listItem = document.createElement("li");
 
@@ -117,6 +142,11 @@ function createNutrientListItem(nutrient, format) {
     return listItem;
 }
 
+/**
+ * Retrieves the order of nutrients to be displayed.
+ * @param {boolean} format - Indicates whether the nutrient order should include formatting information.
+ * @returns {Array} - The array containing the order of nutrients.
+ */
 function getNutrientOrder(format) {
     if (format) {
         return [
